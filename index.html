@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="NiveshSathi - A simple micro-investment platform for first-time investors. Start investing with just ₹10.">
+    <title>NiveshSathi - Micro Investment for Everyone</title>
+    
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/footer.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">
+                <span class="logo-icon">🌱</span>
+                <span class="logo-text">NiveshSathi</span>
+            </div>
+            <div class="language-toggle">
+                <button id="lang-en" class="lang-btn active" onclick="setLanguage('en')">EN</button>
+                <button id="lang-hi" class="lang-btn" onclick="setLanguage('hi')">हिं</button>
+            </div>
+        </div>
+        <p class="tagline" data-i18n="tagline">Your trusted partner in small savings</p>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Demo Notice -->
+        <div class="demo-notice">
+            <span class="demo-icon">ℹ️</span>
+            <span data-i18n="demoNotice">This is a prototype demo for Byte Quest 2026. No real money involved.</span>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <nav class="tab-nav">
+            <button class="tab-btn active" data-tab="onboarding" data-i18n="tabOnboarding">Get Started</button>
+            <button class="tab-btn" data-tab="invest" data-i18n="tabInvest">Invest</button>
+            <button class="tab-btn" data-tab="tracker" data-i18n="tabTracker">Tracker</button>
+            <button class="tab-btn" data-tab="education" data-i18n="tabEducation">Learn</button>
+        </nav>
+
+        <!-- Onboarding Section -->
+        <section id="onboarding" class="section active">
+            <div class="section-header">
+                <h2 data-i18n="onboardingTitle">Tell Us About Yourself</h2>
+                <p data-i18n="onboardingSubtitle">This helps us suggest the right options for you</p>
+            </div>
+
+            <!-- Step Indicators -->
+            <div class="step-indicators">
+                <div class="step-dot active" id="dot-1">1</div>
+                <div class="step-line"></div>
+                <div class="step-dot" id="dot-2">2</div>
+                <div class="step-line"></div>
+                <div class="step-dot" id="dot-3">3</div>
+                <div class="step-line"></div>
+                <div class="step-dot" id="dot-4">✓</div>
+            </div>
+
+            <!-- Step 1: Income -->
+            <div class="onboarding-step" id="step-income">
+                <h3 data-i18n="incomeQuestion">What is your monthly income range?</h3>
+                <p class="step-helper" data-i18n="incomeHelper">This helps us suggest safe investment amounts for you</p>
+                <div class="option-grid">
+                    <button class="option-btn" data-value="below-10k" onclick="selectIncome(this)">
+                        <span class="option-icon">₹</span>
+                        <span data-i18n="incomeBelow10k">Below ₹10,000</span>
+                    </button>
+                    <button class="option-btn" data-value="10k-25k" onclick="selectIncome(this)">
+                        <span class="option-icon">₹</span>
+                        <span data-i18n="income10kTo25k">₹10,000 - ₹25,000</span>
+                    </button>
+                    <button class="option-btn" data-value="25k-50k" onclick="selectIncome(this)">
+                        <span class="option-icon">₹</span>
+                        <span data-i18n="income25kTo50k">₹25,000 - ₹50,000</span>
+                    </button>
+                    <button class="option-btn" data-value="above-50k" onclick="selectIncome(this)">
+                        <span class="option-icon">₹</span>
+                        <span data-i18n="incomeAbove50k">Above ₹50,000</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 2: Risk -->
+            <div class="onboarding-step hidden" id="step-risk">
+                <h3 data-i18n="riskQuestion">How comfortable are you with risk?</h3>
+                <p class="step-helper" data-i18n="riskHelper">We'll only suggest options that match your comfort level</p>
+                <div class="option-grid two-col">
+                    <button class="option-btn" data-value="very-low" onclick="selectRisk(this)">
+                        <span class="option-icon">🛡️</span>
+                        <span data-i18n="riskVeryLow">Very Low</span>
+                        <small data-i18n="riskVeryLowDesc">I want my money to be very safe</small>
+                    </button>
+                    <button class="option-btn" data-value="low" onclick="selectRisk(this)">
+                        <span class="option-icon">⚖️</span>
+                        <span data-i18n="riskLow">Low</span>
+                        <small data-i18n="riskLowDesc">Some risk is okay for better returns</small>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 3: Goal -->
+            <div class="onboarding-step hidden" id="step-goal">
+                <h3 data-i18n="goalQuestion">What are you saving for?</h3>
+                <p class="step-helper" data-i18n="goalHelper">This helps us personalize your savings journey</p>
+                <div class="option-grid">
+                    <button class="option-btn" data-value="savings" onclick="selectGoal(this)">
+                        <span class="option-icon">🐷</span>
+                        <span data-i18n="goalSavings">General Savings</span>
+                    </button>
+                    <button class="option-btn" data-value="emergency" onclick="selectGoal(this)">
+                        <span class="option-icon">🚑</span>
+                        <span data-i18n="goalEmergency">Emergency Fund</span>
+                    </button>
+                    <button class="option-btn" data-value="education" onclick="selectGoal(this)">
+                        <span class="option-icon">📚</span>
+                        <span data-i18n="goalEducation">Education</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Summary -->
+            <div class="onboarding-step hidden" id="step-summary">
+                <div class="summary-card">
+                    <h3 data-i18n="summaryTitle">🎉 You're all set!</h3>
+                    <div id="summary-content"></div>
+                    
+                    <!-- Personalized Recommendation -->
+                    <div class="personalized-recommendation" id="personalized-rec">
+                        <div class="rec-header">
+                            <span class="rec-icon">🎯</span>
+                            <span data-i18n="yourPlan">Your Personalized Plan</span>
+                        </div>
+                        <div class="rec-body">
+                            <p id="rec-text"></p>
+                            <div class="suggested-amount">
+                                <span data-i18n="suggestedDaily">Suggested daily investment:</span>
+                                <strong id="suggested-amount">₹10</strong>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="primary-btn" onclick="goToInvest()" data-i18n="startInvesting">Start Investing</button>
+                </div>
+            </div>
+
+            <!-- Progress Indicator -->
+            <div class="progress-bar">
+                <div class="progress-fill" id="onboarding-progress"></div>
+            </div>
+        </section>
+
+        <!-- Investment Section -->
+        <section id="invest" class="section">
+            <div class="section-header">
+                <h2 data-i18n="investTitle">Invest Your Money</h2>
+                <p data-i18n="investSubtitle">Start with as little as ₹10</p>
+            </div>
+
+            <!-- Quick Amount Buttons -->
+            <div class="amount-selector">
+                <h3 data-i18n="selectAmount">Choose an amount</h3>
+                <div class="amount-grid">
+                    <button class="amount-btn" data-amount="10" onclick="selectAmount(10)">₹10</button>
+                    <button class="amount-btn" data-amount="50" onclick="selectAmount(50)">₹50</button>
+                    <button class="amount-btn" data-amount="100" onclick="selectAmount(100)">₹100</button>
+                    <button class="amount-btn" data-amount="500" onclick="selectAmount(500)">₹500</button>
+                    <button class="amount-btn" data-amount="1000" onclick="selectAmount(1000)">₹1,000</button>
+                    <button class="amount-btn" data-amount="5000" onclick="selectAmount(5000)">₹5,000</button>
+                </div>
+                
+                <!-- Custom Amount Input -->
+                <div class="custom-amount-section">
+                    <label for="custom-input" data-i18n="orEnterAmount">Or enter any amount:</label>
+                    <div class="custom-input-wrapper">
+                        <span class="currency-symbol">₹</span>
+                        <input type="number" id="custom-input" min="10" max="100000" placeholder="Enter amount" oninput="handleCustomAmount(this.value)">
+                    </div>
+                    <div class="amount-range-hint">Min: ₹10 | Max: ₹1,00,000</div>
+                </div>
+            </div>
+
+            <!-- Allocation Display -->
+            <div class="allocation-section hidden" id="allocation-display">
+                <h3 data-i18n="whereMoneyGoes">📊 Where your money goes</h3>
+                <p class="estimate-notice" data-i18n="estimateNotice">⚠️ All returns shown are estimated/simulated for demo purposes only</p>
+                
+                <!-- Visual Breakdown -->
+                <div class="allocation-visual">
+                    <div class="allocation-bar">
+                        <div class="bar-segment fd-bar" style="width: 50%;">
+                            <span>FD 50%</span>
+                        </div>
+                        <div class="bar-segment bonds-bar" style="width: 30%;">
+                            <span>Bonds 30%</span>
+                        </div>
+                        <div class="bar-segment mf-bar" style="width: 20%;">
+                            <span>MF 20%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="allocation-cards">
+                    <div class="allocation-card fd">
+                        <div class="alloc-header">
+                            <span class="alloc-icon">🏛️</span>
+                            <div>
+                                <span class="alloc-name" data-i18n="fixedDeposit">Fixed Deposit</span>
+                                <span class="alloc-percent">50%</span>
+                            </div>
+                        </div>
+                        <div class="alloc-details">
+                            <div class="alloc-amount" id="fd-amount">₹0</div>
+                            <div class="alloc-return">
+                                <small data-i18n="estimatedReturn">Est. return (1 yr):</small>
+                                <span id="fd-return">₹0</span>
+                            </div>
+                        </div>
+                        <div class="alloc-rate">@ 6.5% p.a.</div>
+                    </div>
+                    
+                    <div class="allocation-card bonds">
+                        <div class="alloc-header">
+                            <span class="alloc-icon">📜</span>
+                            <div>
+                                <span class="alloc-name" data-i18n="govtBonds">Govt. Bonds</span>
+                                <span class="alloc-percent">30%</span>
+                            </div>
+                        </div>
+                        <div class="alloc-details">
+                            <div class="alloc-amount" id="bonds-amount">₹0</div>
+                            <div class="alloc-return">
+                                <small data-i18n="estimatedReturn">Est. return (1 yr):</small>
+                                <span id="bonds-return">₹0</span>
+                            </div>
+                        </div>
+                        <div class="alloc-rate">@ 7.2% p.a.</div>
+                    </div>
+                    
+                    <div class="allocation-card mf">
+                        <div class="alloc-header">
+                            <span class="alloc-icon">📊</span>
+                            <div>
+                                <span class="alloc-name" data-i18n="lowRiskMF">Low-Risk Mutual Fund</span>
+                                <span class="alloc-percent">20%</span>
+                            </div>
+                        </div>
+                        <div class="alloc-details">
+                            <div class="alloc-amount" id="mf-amount">₹0</div>
+                            <div class="alloc-return">
+                                <small data-i18n="estimatedReturn">Est. return (1 yr):</small>
+                                <span id="mf-return">₹0</span>
+                            </div>
+                        </div>
+                        <div class="alloc-rate">@ 8% p.a.</div>
+                    </div>
+                </div>
+
+                <!-- Total Summary -->
+                <div class="total-summary">
+                    <div class="total-row">
+                        <span data-i18n="totalInvested">Total Invested:</span>
+                        <span id="total-invested">₹0</span>
+                    </div>
+                    <div class="total-row highlight">
+                        <span data-i18n="estimatedValue">Estimated Value (1 year):</span>
+                        <span id="total-return">₹0</span>
+                    </div>
+                    <div class="total-row profit">
+                        <span data-i18n="profit">Estimated Profit:</span>
+                        <span id="total-profit">+₹0</span>
+                    </div>
+                </div>
+
+                <!-- Investment Plan Calculator -->
+                <div class="investment-plan">
+                    <h4 data-i18n="investmentPlan">📈 Your Investment Plan</h4>
+                    <p class="plan-subtitle" data-i18n="planSubtitle">See how your money grows if you invest daily</p>
+                    
+                    <div class="plan-timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-period">1 Month</div>
+                            <div class="timeline-invested" id="plan-1m-invested">₹0</div>
+                            <div class="timeline-value" id="plan-1m-value">→ ₹0</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-period">6 Months</div>
+                            <div class="timeline-invested" id="plan-6m-invested">₹0</div>
+                            <div class="timeline-value" id="plan-6m-value">→ ₹0</div>
+                        </div>
+                        <div class="timeline-item featured">
+                            <div class="timeline-badge">✨ Recommended</div>
+                            <div class="timeline-period">1 Year</div>
+                            <div class="timeline-invested" id="plan-1y-invested">₹0</div>
+                            <div class="timeline-value" id="plan-1y-value">→ ₹0</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-period">5 Years</div>
+                            <div class="timeline-invested" id="plan-5y-invested">₹0</div>
+                            <div class="timeline-value" id="plan-5y-value">→ ₹0</div>
+                        </div>
+                        <div class="timeline-item mega">
+                            <div class="timeline-badge">🚀 Dream Big</div>
+                            <div class="timeline-period">10 Years</div>
+                            <div class="timeline-invested" id="plan-10y-invested">₹0</div>
+                            <div class="timeline-value" id="plan-10y-value">→ ₹0</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Habit Message -->
+                <div class="habit-message">
+                    <span class="habit-icon">💡</span>
+                    <span id="habit-text">₹10 daily = ₹300/month = ₹3,600/year! Small habits, big results.</span>
+                </div>
+
+                <button class="primary-btn pulse" onclick="simulateInvestment()" data-i18n="investNow">Invest Now (Simulated)</button>
+            </div>
+        </section>
+
+        <!-- Tracker Section -->
+        <section id="tracker" class="section">
+            <div class="section-header">
+                <h2 data-i18n="trackerTitle">📊 Investment Tracker</h2>
+                <p data-i18n="trackerSubtitle">Monitor your portfolio growth</p>
+            </div>
+
+            <!-- Portfolio Summary -->
+            <div class="portfolio-summary">
+                <div class="portfolio-card total">
+                    <span class="portfolio-label" data-i18n="totalPortfolio">Total Portfolio</span>
+                    <span class="portfolio-value" id="tracker-total">₹0</span>
+                    <span class="portfolio-growth" id="tracker-growth">+₹0 (0%)</span>
+                </div>
+                <div class="portfolio-stats">
+                    <div class="stat-item">
+                        <span class="stat-icon">📅</span>
+                        <span class="stat-label" data-i18n="investments">Investments</span>
+                        <span class="stat-value" id="tracker-count">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-icon">📈</span>
+                        <span class="stat-label" data-i18n="avgReturn">Avg Return</span>
+                        <span class="stat-value" id="tracker-avg">7.1%</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-icon">🎯</span>
+                        <span class="stat-label" data-i18n="streak">Streak</span>
+                        <span class="stat-value" id="tracker-streak">0 days</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Allocation Breakdown -->
+            <div class="tracker-allocation">
+                <h3 data-i18n="portfolioBreakdown">Portfolio Breakdown</h3>
+                <div class="breakdown-chart">
+                    <div class="donut-chart" id="donut-chart">
+                        <div class="donut-center">
+                            <span id="donut-total">₹0</span>
+                        </div>
+                    </div>
+                    <div class="breakdown-legend">
+                        <div class="legend-item fd">
+                            <span class="legend-color"></span>
+                            <span class="legend-name">Fixed Deposit</span>
+                            <span class="legend-value" id="breakdown-fd">₹0</span>
+                        </div>
+                        <div class="legend-item bonds">
+                            <span class="legend-color"></span>
+                            <span class="legend-name">Govt. Bonds</span>
+                            <span class="legend-value" id="breakdown-bonds">₹0</span>
+                        </div>
+                        <div class="legend-item mf">
+                            <span class="legend-color"></span>
+                            <span class="legend-name">Mutual Fund</span>
+                            <span class="legend-value" id="breakdown-mf">₹0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Investment History -->
+            <div class="history-section" id="history-section">
+                <div class="history-header">
+                    <h3 data-i18n="recentInvestments">Recent Investments</h3>
+                    <button class="clear-history-btn" onclick="clearHistory()" data-i18n="clearHistory">Clear All</button>
+                </div>
+                <div id="investment-history"></div>
+            </div>
+
+            <!-- Goal Progress -->
+            <div class="goal-section" id="goal-section">
+                <h3 data-i18n="yourGoal">🎯 Your Goal Progress</h3>
+                <div class="goal-progress">
+                    <div class="goal-bar">
+                        <div class="goal-fill" id="goal-fill"></div>
+                    </div>
+                    <div class="goal-info">
+                        <span id="goal-current">₹0</span>
+                        <span id="goal-target">/ ₹10,000</span>
+                    </div>
+                </div>
+                <p class="goal-message" id="goal-message">Keep going! You're making great progress.</p>
+            </div>
+        </section>
+
+        <!-- Education Section -->
+        <section id="education" class="section">
+            <div class="section-header">
+                <h2 data-i18n="learnTitle">📚 Learn About Investing</h2>
+                <p data-i18n="learnSubtitle">Simple explanations, no confusing words</p>
+            </div>
+
+            <!-- Video Section -->
+            <div class="video-section">
+                <h3 data-i18n="watchVideos">🎥 Watch & Learn</h3>
+                <div class="video-grid">
+                    <div class="video-card" onclick="openVideo('basics')">
+                        <div class="video-thumbnail">
+                            <span class="play-icon">▶️</span>
+                            <img src="https://img.youtube.com/vi/p7HKvqRI_Bo/mqdefault.jpg" alt="Investment Basics">
+                        </div>
+                        <div class="video-info">
+                            <h4 data-i18n="videoBasics">Investment Basics</h4>
+                            <p data-i18n="videoBasicsDesc">Learn what investing means in simple terms</p>
+                            <span class="video-duration">5 min</span>
+                        </div>
+                    </div>
+                    <div class="video-card" onclick="openVideo('fd')">
+                        <div class="video-thumbnail">
+                            <span class="play-icon">▶️</span>
+                            <img src="https://img.youtube.com/vi/nsDg3Q7ZXDA/mqdefault.jpg" alt="Fixed Deposits">
+                        </div>
+                        <div class="video-info">
+                            <h4 data-i18n="videoFD">Fixed Deposits Explained</h4>
+                            <p data-i18n="videoFDDesc">Understand how FDs work and earn interest</p>
+                            <span class="video-duration">4 min</span>
+                        </div>
+                    </div>
+                    <div class="video-card" onclick="openVideo('mf')">
+                        <div class="video-thumbnail">
+                            <span class="play-icon">▶️</span>
+                            <img src="https://img.youtube.com/vi/ZJR-ocke2NQ/mqdefault.jpg" alt="Mutual Funds">
+                        </div>
+                        <div class="video-info">
+                            <h4 data-i18n="videoMF">Mutual Funds for Beginners</h4>
+                            <p data-i18n="videoMFDesc">What are mutual funds and how do they work?</p>
+                            <span class="video-duration">6 min</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reading Progress -->
+            <div class="reading-progress-section">
+                <div class="progress-header">
+                    <span data-i18n="yourProgress">Your Learning Progress</span>
+                    <span class="progress-percent" id="reading-progress">0%</span>
+                </div>
+                <div class="reading-bar">
+                    <div class="reading-fill" id="reading-fill"></div>
+                </div>
+            </div>
+
+            <div class="education-cards">
+                <!-- Card 1: What is Investing -->
+                <div class="edu-card">
+                    <div class="edu-card-header" onclick="toggleCard(this)">
+                        <span class="edu-icon">🌱</span>
+                        <h3 data-i18n="eduWhatIsInvesting">What is Investing?</h3>
+                        <span class="expand-icon">+</span>
+                    </div>
+                    <div class="edu-card-content">
+                        <p data-i18n="eduWhatIsInvestingContent">
+                            Investing means putting your money to work so it can grow over time. 
+                            Think of it like planting a seed - you put in a little now, and over time, 
+                            it grows into something bigger.
+                        </p>
+                        <div class="example-box">
+                            <strong>Example:</strong> If you invest ₹100 at 7% interest, after 1 year you'll have ₹107!
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2: Low Risk -->
+                <div class="edu-card">
+                    <div class="edu-card-header" onclick="toggleCard(this)">
+                        <span class="edu-icon">🛡️</span>
+                        <h3 data-i18n="eduLowRisk">What Does "Low Risk" Mean?</h3>
+                        <span class="expand-icon">+</span>
+                    </div>
+                    <div class="edu-card-content">
+                        <p data-i18n="eduLowRiskContent">
+                            Low risk means your money is kept very safe. It grows slowly but steadily.
+                        </p>
+                        <div class="comparison-table">
+                            <div class="compare-item safe">
+                                <span>🛡️ Low Risk</span>
+                                <span>Safe & Steady</span>
+                            </div>
+                            <div class="compare-item risky">
+                                <span>⚡ High Risk</span>
+                                <span>Can win or lose big</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3: Where does ₹10 go -->
+                <div class="edu-card">
+                    <div class="edu-card-header" onclick="toggleCard(this)">
+                        <span class="edu-icon">💰</span>
+                        <h3 data-i18n="eduWhere10Goes">Where Does Your ₹10 Go?</h3>
+                        <span class="expand-icon">+</span>
+                    </div>
+                    <div class="edu-card-content">
+                        <div class="breakdown-visual">
+                            <div class="breakdown-item fd">
+                                <span class="amount">₹5</span>
+                                <span class="label">Fixed Deposit (50%)</span>
+                                <span class="desc">Like a savings account but better</span>
+                            </div>
+                            <div class="breakdown-item bonds">
+                                <span class="amount">₹3</span>
+                                <span class="label">Govt. Bonds (30%)</span>
+                                <span class="desc">Lending to the government - very safe!</span>
+                            </div>
+                            <div class="breakdown-item mf">
+                                <span class="amount">₹2</span>
+                                <span class="label">Mutual Fund (20%)</span>
+                                <span class="desc">Many small investments together</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4: Fixed Deposits -->
+                <div class="edu-card">
+                    <div class="edu-card-header" onclick="toggleCard(this)">
+                        <span class="edu-icon">🏛️</span>
+                        <h3 data-i18n="eduFD">What is a Fixed Deposit?</h3>
+                        <span class="expand-icon">+</span>
+                    </div>
+                    <div class="edu-card-content">
+                        <p data-i18n="eduFDContent">
+                            A Fixed Deposit (FD) is when you give your money to a bank for a fixed time. 
+                            The bank uses it and gives you back more money than you gave.
+                        </p>
+                        <div class="info-highlight">
+                            💡 FDs are insured by the government up to ₹5 lakh!
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 5: Government Bonds -->
+                <div class="edu-card">
+                    <div class="edu-card-header" onclick="toggleCard(this)">
+                        <span class="edu-icon">📜</span>
+                        <h3 data-i18n="eduBonds">What are Government Bonds?</h3>
+                        <span class="expand-icon">+</span>
+                    </div>
+                    <div class="edu-card-content">
+                        <p data-i18n="eduBondsContent">
+                            When you buy a government bond, you're lending money to the government. 
+                            The government promises to pay you back with extra money (interest).
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 6: Mutual Funds -->
+                <div class="edu-card">
+                    <div class="edu-card-header" onclick="toggleCard(this)">
+                        <span class="edu-icon">📊</span>
+                        <h3 data-i18n="eduMF">What is a Mutual Fund?</h3>
+                        <span class="expand-icon">+</span>
+                    </div>
+                    <div class="edu-card-content">
+                        <p data-i18n="eduMFContent">
+                            A mutual fund collects money from many people and invests it together. 
+                            An expert decides where to put this money.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 7: Is my money safe? -->
+                <div class="edu-card safety-card">
+                    <div class="edu-card-header" onclick="toggleCard(this)">
+                        <span class="edu-icon">🔒</span>
+                        <h3 data-i18n="eduSafe">Is My Money Safe?</h3>
+                        <span class="expand-icon">+</span>
+                    </div>
+                    <div class="edu-card-content">
+                        <p data-i18n="eduSafeContent">
+                            Yes! We only recommend the safest investment options. Fixed Deposits are insured 
+                            by the government up to ₹5 lakhs.
+                        </p>
+                        <div class="safety-badges">
+                            <span class="badge">🏛️ Govt Backed</span>
+                            <span class="badge">🔒 Insured</span>
+                            <span class="badge">✅ SEBI Regulated</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 8: Power of Compounding -->
+                <div class="edu-card highlight-card">
+                    <div class="edu-card-header" onclick="toggleCard(this)">
+                        <span class="edu-icon">✨</span>
+                        <h3 data-i18n="eduCompounding">The Magic of Compounding</h3>
+                        <span class="expand-icon">+</span>
+                    </div>
+                    <div class="edu-card-content">
+                        <p>
+                            Compounding is like a snowball rolling down a hill - it gets bigger and bigger!
+                        </p>
+                        <div class="compound-example">
+                            <div class="compound-item">
+                                <span class="year">Start at 20</span>
+                                <span class="result">₹10 lakh at 50</span>
+                            </div>
+                            <div class="compound-item">
+                                <span class="year">Start at 30</span>
+                                <span class="result">₹5 lakh at 50</span>
+                            </div>
+                        </div>
+                        <p class="compound-message">⏰ The best time to start investing was yesterday. The second best time is today!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tips Section -->
+            <div class="tips-section">
+                <h3 data-i18n="quickTips">💡 Quick Tips</h3>
+                <ul class="tips-list">
+                    <li data-i18n="tip1">Start small - even ₹10 per week adds up over time</li>
+                    <li data-i18n="tip2">Be patient - good things take time to grow</li>
+                    <li data-i18n="tip3">Invest regularly - make it a habit like saving rice</li>
+                    <li data-i18n="tip4">Don't invest money you need for daily expenses</li>
+                    <li>The earlier you start, the more you earn (compounding magic!)</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <!-- Video Modal -->
+    <div class="video-modal" id="video-modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeVideo()">×</button>
+            <div class="video-container" id="video-container"></div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="offline-notice">
+            <span class="offline-icon">📴</span>
+            <span data-i18n="offlineNote">Works offline for learning using saved data</span>
+        </div>
+        <div class="footer-links">
+            <span data-i18n="footerDemo">Demo Project - Byte Quest 2026</span>
+        </div>
+        <p class="disclaimer" data-i18n="disclaimer">
+            ⚠️ This is a prototype only. No real investments. All data is simulated.
+        </p>
+    </footer>
+
+    <!-- JavaScript Files -->
+    <script src="js/language.js"></script>
+    <script src="js/onboarding.js"></script>
+    <script src="js/invest.js"></script>
+    <script src="js/education.js"></script>
+</body>
+</html>
